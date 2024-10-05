@@ -120,7 +120,7 @@ class GifDecomposer:
 
                 # RBGA로 변환  
                 image = im.convert("RGBA")
-                newData = []            
+                new_data = []            
 
                 # 새 이미지에에 투명색을 제거하면서 복사
                 for item in image.getdata():
@@ -128,20 +128,20 @@ class GifDecomposer:
                     if item[3] == 0:
                         # 그대로 넣기
                         if self.is_transparent:
-                            newData.append(tuple(item))
+                            new_data.append(tuple(item))
 
                         # 지정 색으로 변경
                         else:
-                            newData.append(color)
+                            new_data.append(color)
                     # 투명 아니면
                     else:
                         # 그대로 넣기
                         if self.is_transparent:
-                            newData.append(tuple(item))
+                            new_data.append(tuple(item))
                         
                         # 알파 제거
                         else:
-                            newData.append(tuple(item[:3]))
+                            new_data.append(tuple(item[:3]))
 
                 # RGBA 빈 이미지 생성
                 if self.is_transparent:
@@ -151,7 +151,7 @@ class GifDecomposer:
                     new_img = Image.new("RGB", im.size)   
                 
                 # newImage에 newData 추가
-                new_img.putdata(newData)
+                new_img.putdata(new_data)
 
                 # 파일로 저장
                 new_img.save('{}_{}.png'.format(save_path,i))
